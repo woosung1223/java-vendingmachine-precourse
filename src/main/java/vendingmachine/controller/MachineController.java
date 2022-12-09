@@ -11,7 +11,6 @@ public class MachineController {
     private VendingMachine vendingMachine;
 
     public void run() {
-
         prepareRoutine();
         serviceRoutine();
         endRoutine();
@@ -19,7 +18,6 @@ public class MachineController {
 
     private void prepareRoutine() {
         Wallet wallet = inputController.readWallet();
-        wallet.makeMoneyToRandomCoins();
         outputView.printCoins(wallet.getCoins());
         List<Product> products = inputController.readProducts();
 
