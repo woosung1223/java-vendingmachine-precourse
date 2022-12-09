@@ -3,21 +3,17 @@ package vendingmachine.domain;
 import java.util.*;
 
 public class VendingMachine {
-    private final List<Coin> holdingCoins;
+    private final Wallet wallet;
     private final List<Product> products;
     private int customerMoney = 0; // TODO: 감싸기
 
-    public VendingMachine(int holdingMoney, List<Product> products) {
-        CoinConverter coinConverter = new CoinConverter();
-
-        this.holdingCoins = coinConverter.convertToRandomCoins(holdingMoney);
+    public VendingMachine(Wallet wallet, List<Product> products) {
+        this.wallet = wallet;
         this.products = products;
-
-        holdingCoins.sort((o1, o2) -> o2.getAmount() - o1.getAmount());
     }
 
-    public List<Coin> getHoldingCoins() {
-        return Collections.unmodifiableList(holdingCoins);
+    public Wallet getWallet() {
+        return wallet;
     }
 
     public void putMoney(int money) {
@@ -37,7 +33,7 @@ public class VendingMachine {
     public Map<Coin, Integer> getChange() {
         Map<Coin, Integer> change = new HashMap<>();
 
-        for (Coin coin : holdingCoins) {
+        for (Coin coin : wallet.getCoins()) {
             change.put(coin, customerMoney / coin.getAmount());
             customerMoney %= coin.getAmount();
         }
