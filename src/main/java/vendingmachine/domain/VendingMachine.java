@@ -12,10 +12,6 @@ public class VendingMachine {
         this.products = products;
     }
 
-    public Wallet getWallet() {
-        return wallet;
-    }
-
     public void putMoney(int money) {
         customerMoney = money;
     }
