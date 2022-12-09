@@ -17,6 +17,10 @@ public class Product {
         count--;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) {

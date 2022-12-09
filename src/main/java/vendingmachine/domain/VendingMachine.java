@@ -23,5 +23,13 @@ public class VendingMachine {
         customerMoney = money;
     }
 
-    
+    public void buy(Product toBuy) {
+        Product productSelected = products.stream()
+                .filter(product -> product.equals(toBuy))
+                .findFirst()
+                .get();
+
+        productSelected.sell();
+        customerMoney -= productSelected.getPrice();
+    }
 }
