@@ -3,6 +3,7 @@ package vendingmachine.domain;
 import camp.nextstep.edu.missionutils.Randoms;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,6 +32,13 @@ public enum Coin {
         return Arrays.stream(values())
                 .filter(coin -> coin.getAmount() == amount)
                 .findFirst()
+                .orElseThrow(RuntimeException::new);
+    }
+
+    public static int getSmallestAmount() {
+        return Arrays.stream(values())
+                .map(Coin::getAmount)
+                .min(Comparator.comparingInt(o -> o))
                 .orElseThrow(RuntimeException::new);
     }
 

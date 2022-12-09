@@ -27,4 +27,9 @@ class CoinTest {
         assertThat(Coin.getCoinByAmount(100)).isEqualTo(Coin.COIN_100);
         assertThat(Coin.getCoinByAmount(500)).isEqualTo(Coin.COIN_500);
     }
+
+    @Test
+    void 가장_작은_코인을_반환하는지_테스트() {
+        assertThat(Coin.getSmallestAmount()).isEqualTo(10);
+    }
 }
