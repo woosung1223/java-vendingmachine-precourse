@@ -26,6 +26,10 @@ public class VendingMachine {
         customerMoney -= productSelected.getPrice();
     }
 
+    public int getCustomerMoney() {
+        return customerMoney;
+    }
+
     public Map<Coin, Integer> getChange() {
         return wallet.makeChange(customerMoney);
     }
