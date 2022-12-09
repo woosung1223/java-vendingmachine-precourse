@@ -12,14 +12,21 @@ public class MachineController {
 
     public void run() {
 
+        prepareRoutine();
+        serviceRoutine();
+        endRoutine();
+    }
+
+    private void prepareRoutine() {
         Wallet wallet = inputController.readWallet();
         wallet.makeMoneyToRandomCoins();
         outputView.printCoins(wallet.getCoins());
-
         List<Product> products = inputController.readProducts();
 
         vendingMachine = new VendingMachine(wallet, products);
+    }
 
+    private void serviceRoutine() {
         vendingMachine.putMoney(inputController.readUserMoney());
 
         while (!vendingMachine.isServiceOver()) {
@@ -27,7 +34,9 @@ public class MachineController {
             Product product = inputController.readProductToBuy();
             vendingMachine.buy(product);
         }
+    }
 
+    private void endRoutine() {
         outputView.printChange(vendingMachine.getChange());
     }
 }
