@@ -12,6 +12,9 @@ public class InputView {
     private final String READ_USER_MONEY_MESSAGE = "투입 금액을 입력해 주세요.";
     private final String READ_PRODUCTS_TO_BUY_MESSAGE = "구매할 상품명을 입력해 주세요.";
 
+    private final String PRODUCT_DELIMITER = ";";
+    private final String PRODUCT_INFO_DELIMITER = ",";
+
     public int readHoldingMoney() {
         System.out.println(READ_HOLDING_MONEY_MESSAGE);
         String line = Console.readLine();
@@ -21,15 +24,19 @@ public class InputView {
     public List<List<String>> readProducts() {
         System.out.println(READ_PRODUCTS_MESSAGE);
         String line = Console.readLine();
-        List<String> product = Arrays.asList(line.split(";"));
 
         List<List<String>> products = new ArrayList<>();
-
-        product.forEach(element -> {
-            products.add(
-                    Arrays.asList(element.substring(1, element.length() - 1).split(",")));
-        });
+        Arrays.stream(line.split(PRODUCT_DELIMITER))
+                .forEach(element -> products.add(splitByDelimiter(deleteBracket(element))));
         return products;
+    }
+
+    private String deleteBracket(String target) {
+        return target.substring(1, target.length() - 1);
+    }
+
+    private List<String> splitByDelimiter(String target) {
+        return Arrays.asList(target.split(PRODUCT_INFO_DELIMITER));
     }
 
     public int readUserMoney() {
@@ -40,7 +47,6 @@ public class InputView {
 
     public String readProductToBuy() {
         System.out.println(READ_PRODUCTS_TO_BUY_MESSAGE);
-        String line = Console.readLine();
-        return line;
+        return Console.readLine();
     }
 }
