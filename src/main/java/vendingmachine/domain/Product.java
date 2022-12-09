@@ -21,6 +21,10 @@ public class Product {
         return price;
     }
 
+    public boolean isAbsent() {
+        return count <= 0;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) {

@@ -1,6 +1,7 @@
 package vendingmachine.domain;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class VendingMachine {
@@ -31,5 +32,23 @@ public class VendingMachine {
 
         productSelected.sell();
         customerMoney -= productSelected.getPrice();
+    }
+
+    public boolean isServiceOver() {
+        return isNotEnoughMoney() || isNotEnoughProduct();
+    }
+
+    private boolean isNotEnoughMoney() {
+        Product cheapestProduct = products.stream()
+                .min(Comparator.comparingInt(Product::getPrice))
+                .get();
+
+        return cheapestProduct.getPrice() > customerMoney;
+    }
+
+    private boolean isNotEnoughProduct() {
+        return products.stream()
+                .filter(product -> product.getPrice() <= customerMoney)
+                .allMatch(Product::isAbsent);
     }
 }
