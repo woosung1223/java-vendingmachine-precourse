@@ -13,6 +13,10 @@ public class Product {
         this.count = count;
     }
 
+    public static Product ofName(String name) {
+        return new Product(name, 0, 0);
+    }
+
     public void sell() {
         count--;
     }
@@ -34,12 +38,11 @@ public class Product {
             return false;
         }
         Product product = (Product)other;
-        return Objects.equals(name, product.name) &&
-                price == product.price;
+        return Objects.equals(name, product.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, price);
+        return Objects.hash(name);
     }
 }
