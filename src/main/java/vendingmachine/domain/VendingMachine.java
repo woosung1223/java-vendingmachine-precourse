@@ -10,8 +10,6 @@ public class VendingMachine {
     public VendingMachine(Wallet wallet, List<Product> products) {
         this.wallet = wallet;
         this.products = products;
-
-        wallet.makeMoneyToRandomCoins();
     }
 
     public void putMoney(Money money) {
