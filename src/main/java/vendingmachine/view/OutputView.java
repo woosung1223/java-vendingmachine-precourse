@@ -15,11 +15,9 @@ public class OutputView {
     private final String PRINT_CHANGE_MESSAGE = "잔돈";
     private final String CHANGE_SKELETON = "%d원 - %d개" + System.lineSeparator();
 
-    public void printCoins(List<Coin> coins) {
+    public void printCoins(Map<Coin, Integer> coins) {
         System.out.println(PRINT_COINS_MESSAGE);
-        for (Coin coin : coins) {
-            System.out.printf(COIN_SKELETON, coin.getAmount(), Collections.frequency(coins, coin));
-        }
+        coins.forEach((coin, count) -> System.out.printf(COIN_SKELETON, coin.getAmount(), count));
     }
 
     public void printCurrentMoney(int money) {

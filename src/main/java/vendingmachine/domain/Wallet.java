@@ -16,8 +16,13 @@ public class Wallet {
         coins.sort((o1, o2) -> o2.getAmount() - o1.getAmount());
     }
 
-    public List<Coin> getCoins() {
-        return coins;
+    public Map<Coin, Integer> getCoins() {
+        Map<Coin, Integer> classifiedCoins = new LinkedHashMap<>();
+        for (Coin coin : coins) {
+            classifiedCoins.putIfAbsent(coin, 0);
+            classifiedCoins.put(coin, Collections.frequency(coins, coin));
+        }
+        return classifiedCoins;
     }
 
     public Map<Coin, Integer> makeChange(int money) {
