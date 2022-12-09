@@ -8,6 +8,7 @@ public class VendingMachine {
     private Money customerMoney;
 
     public VendingMachine(Wallet wallet, List<Product> products) {
+        validate(products);
         this.wallet = wallet;
         this.products = products;
     }
@@ -50,5 +51,15 @@ public class VendingMachine {
         return products.stream()
                 .filter(product -> product.getPrice() <= customerMoney.get())
                 .allMatch(Product::isAbsent);
+    }
+
+    private void validate(List<Product> products) {
+        checkNotEmpty(products);
+    }
+
+    private void checkNotEmpty(List<Product> products) {
+        if (products.isEmpty()) {
+            throw new IllegalArgumentException("[ERROR] 상품은 1개 이상 존재해야 합니다.");
+        }
     }
 }
