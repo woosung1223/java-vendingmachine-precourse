@@ -5,7 +5,7 @@ import java.util.*;
 public class VendingMachine {
     private final Wallet wallet;
     private final List<Product> products;
-    private int customerMoney = 0; // TODO: 감싸기
+    private Money customerMoney;
 
     public VendingMachine(Wallet wallet, List<Product> products) {
         this.wallet = wallet;
@@ -14,7 +14,7 @@ public class VendingMachine {
         wallet.makeMoneyToRandomCoins();
     }
 
-    public void putMoney(int money) {
+    public void putMoney(Money money) {
         customerMoney = money;
     }
 
@@ -25,10 +25,10 @@ public class VendingMachine {
                 .get();
 
         productSelected.sell();
-        customerMoney -= productSelected.getPrice();
+        customerMoney.spend(productSelected.getPrice());
     }
 
-    public int getCustomerMoney() {
+    public Money getCustomerMoney() {
         return customerMoney;
     }
 
@@ -45,12 +45,12 @@ public class VendingMachine {
                 .min(Comparator.comparingInt(Product::getPrice))
                 .get();
 
-        return cheapestProduct.getPrice() > customerMoney;
+        return customerMoney.isSmallerThan(cheapestProduct.getPrice());
     }
 
     private boolean isNotEnoughProduct() {
         return products.stream()
-                .filter(product -> product.getPrice() <= customerMoney)
+                .filter(product -> product.getPrice() <= customerMoney.get())
                 .allMatch(Product::isAbsent);
     }
 }

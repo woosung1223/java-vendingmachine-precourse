@@ -1,9 +1,8 @@
 package vendingmachine.view;
 
 import vendingmachine.domain.Coin;
+import vendingmachine.domain.Money;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 public class OutputView {
@@ -20,8 +19,8 @@ public class OutputView {
         coins.forEach((coin, count) -> System.out.printf(COIN_SKELETON, coin.getAmount(), count));
     }
 
-    public void printCurrentMoney(int money) {
-        System.out.printf(PRINT_CURRENT_MONEY_MESSAGE, money);
+    public void printCurrentMoney(Money money) {
+        System.out.printf(PRINT_CURRENT_MONEY_MESSAGE, money.get());
     }
 
     public void printChange(Map<Coin, Integer> change) {

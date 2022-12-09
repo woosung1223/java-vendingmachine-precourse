@@ -25,15 +25,15 @@ public class Wallet {
         return classifiedCoins;
     }
 
-    public Map<Coin, Integer> makeChange(int money) {
+    public Map<Coin, Integer> makeChange(Money money) {
         Map<Coin, Integer> change = new LinkedHashMap<>();
         for (Coin coin : Coin.values()) {
             change.put(coin, 0);
         }
 
         for (Coin coin : coins) {
-            if (money >= coin.getAmount()) {
-                money -= coin.getAmount();
+            if (money.get() >= coin.getAmount()) {
+                money.spend(coin.getAmount());
                 change.put(coin, change.get(coin) + 1);
             }
         }

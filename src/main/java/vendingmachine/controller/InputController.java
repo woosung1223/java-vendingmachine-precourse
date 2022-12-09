@@ -1,5 +1,6 @@
 package vendingmachine.controller;
 
+import vendingmachine.domain.Money;
 import vendingmachine.domain.Product;
 import vendingmachine.domain.Wallet;
 import vendingmachine.view.InputView;
@@ -32,10 +33,9 @@ public class InputController {
         }
     }
 
-    public int readUserMoney() {
+    public Money readUserMoney() {
         try {
-            int userMoney = inputView.readUserMoney();
-            return userMoney;
+            return new Money(inputView.readUserMoney());
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return readUserMoney();
