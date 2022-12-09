@@ -1,5 +1,6 @@
 package vendingmachine.controller;
 
+import vendingmachine.domain.Inventory;
 import vendingmachine.domain.Money;
 import vendingmachine.domain.Product;
 import vendingmachine.domain.Wallet;
@@ -20,16 +21,16 @@ public class InputController {
         }
     }
 
-    public List<Product> readProducts() {
+    public Inventory readInventory() {
         try {
             List<List<String>> products = inputView.readProducts();
-            return products.stream()
+            return new Inventory(products.stream()
                     .map(data -> new Product(data.get(0), Integer.parseInt(data.get(1)), Integer.parseInt(data.get(2))))
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toList()));
 
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            return readProducts();
+            return readInventory();
         }
     }
 

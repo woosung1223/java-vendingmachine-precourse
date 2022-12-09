@@ -8,9 +8,9 @@ public class VendingMachine {
     private final Inventory products;
     private Money customerMoney;
 
-    public VendingMachine(Wallet wallet, List<Product> products) {
+    public VendingMachine(Wallet wallet, Inventory products) {
         this.wallet = wallet;
-        this.products = new Inventory(products);
+        this.products = products;
     }
 
     public void putMoney(Money money) {

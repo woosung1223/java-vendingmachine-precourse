@@ -19,7 +19,7 @@ public class MachineController {
     private void prepareRoutine() {
         Wallet wallet = inputController.readWallet();
         outputView.printCoins(wallet.getCoins());
-        List<Product> products = inputController.readProducts();
+        Inventory products = inputController.readInventory();
 
         vendingMachine = new VendingMachine(wallet, products);
     }
