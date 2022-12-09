@@ -18,4 +18,6 @@ public class Money {
     public int get() {
         return money;
     }
+
+
 }

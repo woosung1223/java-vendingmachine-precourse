@@ -7,6 +7,7 @@ public class Wallet {
     private List<Coin> coins;
 
     public Wallet(int money) {
+        validate(money);
         this.totalMoney = money;
     }
 
@@ -38,5 +39,22 @@ public class Wallet {
             }
         }
         return change;
+    }
+
+    private void validate(int money) {
+        checkPositive(money);
+        checkDivisible(money);
+    }
+
+    private void checkPositive(int money) {
+        if (money < 0) {
+            throw new IllegalArgumentException("[ERROR] 자판기는 0원 이상을 보유해야 합니다.");
+        }
+    }
+
+    private void checkDivisible(int money) {
+        if (money % Coin.getSmallestAmount() != 0) {
+            throw new IllegalArgumentException("[ERROR] 1원 단위로는 입력할 수 없습니다.");
+        }
     }
 }
