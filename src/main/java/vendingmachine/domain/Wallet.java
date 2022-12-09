@@ -1,9 +1,6 @@
 package vendingmachine.domain;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Wallet {
     private final List<Coin> coins;
@@ -18,10 +15,16 @@ public class Wallet {
     }
 
     public Map<Coin, Integer> makeChange(int money) {
-        Map<Coin, Integer> change = new HashMap<>();
+        Map<Coin, Integer> change = new LinkedHashMap<>();
+        for (Coin coin : Coin.values()) {
+            change.put(coin, 0);
+        }
+
         for (Coin coin : coins) {
-            change.put(coin, money / coin.getAmount());
-            money %= coin.getAmount();
+            if (money >= coin.getAmount()) {
+                money -= coin.getAmount();
+                change.put(coin, change.get(coin) + 1);
+            }
         }
         return change;
     }
