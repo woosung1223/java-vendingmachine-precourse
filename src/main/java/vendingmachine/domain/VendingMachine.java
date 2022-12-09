@@ -1,16 +1,17 @@
 package vendingmachine.domain;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 public class VendingMachine {
     private final Wallet wallet;
-    private final List<Product> products;
+    private final Inventory products;
     private Money customerMoney;
 
     public VendingMachine(Wallet wallet, List<Product> products) {
         validate(products);
         this.wallet = wallet;
-        this.products = products;
+        this.products = new Inventory(products);
     }
 
     public void putMoney(Money money) {
@@ -18,11 +19,7 @@ public class VendingMachine {
     }
 
     public void buy(Product toBuy) {
-        Product productSelected = products.stream()
-                .filter(product -> product.equals(toBuy))
-                .findFirst()
-                .get();
-
+        Product productSelected = products.takeOutProduct(toBuy);
         productSelected.sell();
         customerMoney.spend(productSelected.getPrice());
     }
@@ -40,17 +37,12 @@ public class VendingMachine {
     }
 
     private boolean isNotEnoughMoney() {
-        Product cheapestProduct = products.stream()
-                .min(Comparator.comparingInt(Product::getPrice))
-                .get();
-
+        Product cheapestProduct = products.getCheapestProduct();
         return customerMoney.isSmallerThan(cheapestProduct.getPrice());
     }
 
     private boolean isNotEnoughProduct() {
-        return products.stream()
-                .filter(product -> product.getPrice() <= customerMoney.get())
-                .allMatch(Product::isAbsent);
+        return products.isNoProductCanBuyWith(customerMoney);
     }
 
     private void validate(List<Product> products) {
