@@ -3,10 +3,16 @@ package vendingmachine.domain;
 import java.util.*;
 
 public class Wallet {
-    private final List<Coin> coins;
+    private int totalMoney;
+    private List<Coin> coins;
 
-    public Wallet(List<Coin> coins) {
-        this.coins = coins;
+    public Wallet(int money) {
+        this.totalMoney = money;
+    }
+
+    public void makeMoneyToRandomCoins() {
+        CoinConverter coinConverter = new CoinConverter();
+        this.coins = coinConverter.convertToRandomCoins(totalMoney);
         coins.sort((o1, o2) -> o2.getAmount() - o1.getAmount());
     }
 
