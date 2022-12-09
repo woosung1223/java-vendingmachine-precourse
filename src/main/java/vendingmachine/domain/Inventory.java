@@ -7,6 +7,7 @@ public class Inventory {
     private final List<Product> products;
 
     public Inventory(List<Product> products) {
+        validate(products);
         this.products = products;
     }
 
@@ -29,7 +30,13 @@ public class Inventory {
                 .allMatch(Product::isAbsent);
     }
 
-    public boolean isEmpty() {
-        return products.isEmpty();
+    private void validate(List<Product> products) {
+        checkNotEmpty(products);
+    }
+
+    private void checkNotEmpty(List<Product> products) {
+        if (products.isEmpty()) {
+            throw new IllegalArgumentException("[ERROR] 상품은 1개 이상 존재해야 합니다.");
+        }
     }
 }
