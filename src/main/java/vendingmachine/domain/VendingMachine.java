@@ -31,13 +31,7 @@ public class VendingMachine {
     }
 
     public Map<Coin, Integer> getChange() {
-        Map<Coin, Integer> change = new HashMap<>();
-
-        for (Coin coin : wallet.getCoins()) {
-            change.put(coin, customerMoney / coin.getAmount());
-            customerMoney %= coin.getAmount();
-        }
-        return change;
+        return wallet.makeChange(customerMoney);
     }
 
     public boolean isServiceOver() {
