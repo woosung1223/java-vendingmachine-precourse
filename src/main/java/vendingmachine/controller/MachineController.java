@@ -18,7 +18,6 @@ public class MachineController {
 
     private void prepareRoutine() {
         Wallet wallet = inputController.readWallet();
-        wallet.makeMoneyToRandomCoins();
         outputView.printCoins(wallet.getCoins());
         List<Product> products = inputController.readProducts();
 
